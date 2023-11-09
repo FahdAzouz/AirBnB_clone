@@ -15,6 +15,22 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb)"
 
+    def custom_all(self, match):
+        """Custom all() commander."""
+        print("ALL()", match)
+
+    def precmd(self, line):
+        """Intercepts commands to test for class.syntax()"""
+        match = re.search("^(\w*)\.(\w+)(?:\(([^)]*)\))$", line)
+        if not match:
+            return line
+        cl_name = match.group(1)
+        meth = match.group(2)
+        var = match.group(3)
+        cmmd = meth + " " + cl_name + " " + var
+        self.onecmd(cmmd)
+        return ""
+
     def do_quit(self, line):
         """Quit command"""
         return True
@@ -27,9 +43,9 @@ class HBNBCommand(cmd.Cmd):
         """an empty line"""
         pass
 
-    def do_create(self, line)
+    def do_create(self, line):
         """Creates a new instance of BaseModel"""
-        if line is None or line = "":
+        if line == "" or line is None:
             print("** class name missing **")
         elif line not in storage.classes():
             print("** class doesn't exist **")
@@ -37,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
             obj = storage.classes()[line]()
             obj.save()
             print(obj.id)
-    
+
     def do_show(self, line):
         """Prints the string representation of an instance
         based on the class name and id. Ex: $ show BaseModel 1234-1234-1234.
@@ -57,16 +73,16 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print(storage.all()[key])
 
-     def do_all(self, line):
+    def do_all(self, line):
         """Prints all string representation of all
         instances based or not on the class name"""
         if line != "":
-            var = line.split(' ')
-            if var[0] not in storage.classes():
+            args = line.split(' ')
+            if args[0] not in storage.classes():
                 print("** class doesn't exist **")
             else:
                 l = [str(obj) for key, obj in storage.all().items()
-                     if type(obj).__name__ == var[0]]
+                     if type(obj).__name__ == args[0]]
                 print(l)
         else:
             l = [str(obj) for key, obj in storage.all().items()]
@@ -89,6 +105,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     del storage.all()[key]
                     storage.save()
+
     def do_update(self, line):
         """Updates an instance based on the class\
         name and id by adding or updating attribute.
@@ -120,6 +137,7 @@ class HBNBCommand(cmd.Cmd):
                     value = attributes[match.group(3)](value)
                 setattr(storage.all()[key], match.group(3), value)
                 storage.all()[key].save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
