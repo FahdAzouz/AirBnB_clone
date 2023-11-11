@@ -2,9 +2,9 @@
 """
 file_storage module
 """
-import datetime
-import json
 import os
+import json
+import datetime
 
 
 class FileStorage:
@@ -12,8 +12,8 @@ class FileStorage:
     FileStorage class
     """
 
-    __file_path = "file.json"
     __objects = {}
+    __file_path = "file.json"
 
     def all(self):
         """returns the dictionary __objects"""
@@ -32,22 +32,22 @@ class FileStorage:
 
     def classes(self):
         """Returns a dictionary of valid classes and their references."""
-        from models.user import BaseModel
-        from models.user import User
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.place import Place
         from models.review import Review
+        from models.place import Place
+        from models.amenity import Amenity
+        from models.city import City
+        from models.state import State
+        from models.user import User
+        from models.user import BaseModel
 
-        classes = {"BaseModel": BaseModel,
+        haduk = {"BaseModel": BaseModel,
                    "User": User,
                    "State": State,
                    "City": City,
                    "Amenity": Amenity,
                    "Place": Place,
                    "Review": Review}
-        return classes
+        return haduk
 
     def reload(self):
         """
