@@ -21,10 +21,10 @@ class HBNBCommand(cmd.Cmd):
         if not match:
             return line
         classname = match.group(1)
-        method = match.group(2)
-        args = match.group(3)
-        command = method + " " + classname + " " + args
-        self.onecmd(command)
+        meth = match.group(2)
+        toks = match.group(3)
+        commnd = meth + " " + classname + " " + toks
+        self.onecmd(commnd)
         return ""
 
     def do_quit(self, line):
@@ -106,12 +106,12 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representation of all
         instances based or not on the class name"""
         if line != "":
-            args = line.split(' ')
-            if args[0] not in storage.classes():
+            toks = line.split(' ')
+            if toks[0] not in storage.classes():
                 print("** class doesn't exist **")
             else:
                 l = [str(obj) for key, obj in storage.all().items()
-                     if type(obj).__name__ == args[0]]
+                     if type(obj).__name__ == toks[0]]
                 print(l)
         else:
             l = [str(obj) for key, obj in storage.all().items()]
