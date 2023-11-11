@@ -3,7 +3,7 @@
 base_model module
 """
 import datetime
-from uuid import uuid4
+import uuid
 from models import storage
 
 
@@ -22,7 +22,7 @@ class BaseModel:
                     else:
                         setattr(self, key, value)
         else:
-            self.id = str(uuid4())
+            self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = self.created_at
             storage.new(self)
