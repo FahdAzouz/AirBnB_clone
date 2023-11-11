@@ -65,7 +65,7 @@ class FileStorage:
 
     def attributes(self):
         """Returns the valid attributes and their types for classname."""
-        attributes = {
+        hadukatt = {
             "BaseModel":
                      {"id": str,
                       "created_at": datetime.datetime,
@@ -99,5 +99,5 @@ class FileStorage:
                       "user_id": str,
                       "text": str}
                      }
-        return attributes
+        return hadukatt
 
