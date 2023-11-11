@@ -47,16 +47,16 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """Prints the string representation of an
         instance based on the class name and id"""
-        if line == "" or line is None:
+        if line is None or line == "":
             print("** class name missing **")
         else:
-            args = line.split(' ')
-            if args[0] not in storage.classes():
+            toks = line.split(' ')
+            if toks[0] not in storage.classes():
                 print("** class doesn't exist **")
-            elif len(args) < 2:
+            elif len(toks) < 2:
                 print("** instance id missing **")
             else:
-                key = "{}.{}".format(args[0], args[1])
+                key = "{}.{}".format(toks[0], toks[1])
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
@@ -64,7 +64,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Creates a new instance of BaseModel"""
-        if line == "" or line is None:
+        if line is None or line == "":
             print("** class name missing **")
         elif line not in storage.classes():
             print("** class doesn't exist **")
@@ -75,16 +75,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id"""
-        if line == "" or line is None:
+        if line is None or line == "":
             print("** class name missing **")
         else:
-            args = line.split(' ')
-            if args[0] not in storage.classes():
+            toks = line.split(' ')
+            if toks[0] not in storage.classes():
                 print("** class doesn't exist **")
-            elif len(args) < 2:
+            elif len(toks) < 2:
                 print("** instance id missing **")
             else:
-                key = "{}.{}".format(args[0], args[1])
+                key = "{}.{}".format(toks[0], toks[1])
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
@@ -93,13 +93,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, line):
         """retrieve the number of instances of a class"""
-        args = line.split(' ')
-        if not args[0]:
+        toks = line.split(' ')
+        if not toks[0]:
             print("** class name missing **")
-        elif args[0] not in storage.classes():
+        elif toks[0] not in storage.classes():
             print("** class doesn't exist **")
         else:
-            matches = [k for k in storage.all() if k.startswith(args[0] + '.')]
+            matches = [k for k in storage.all() if k.startswith(toks[0] + '.')]
             print(len(matches))
 
     def do_all(self, line):
