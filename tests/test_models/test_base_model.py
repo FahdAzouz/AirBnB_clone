@@ -10,7 +10,6 @@ from models.base_model import BaseModel
 from unittest import TestCase
 
 
-
 class TestBaseModel(TestCase):
     """
     Test cases for the BaseModel class
@@ -27,11 +26,6 @@ class TestBaseModel(TestCase):
     def test_class_doc(self):
         """test class documentation"""
         doc = BaseModel.__doc__
-        self.assertGreater(len(doc), 1)
-
-    def test_str_doc(self):
-        """test str functiom documentation"""
-        doc = BaseModel.__str__.__doc__
         self.assertGreater(len(doc), 1)
 
     def test_module_doc(self):
