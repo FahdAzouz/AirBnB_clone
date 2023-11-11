@@ -12,6 +12,7 @@ class FileStorage:
     """
     serializes instances to a JSON file and vice versa
     """
+
     __file_path = self.__name__ + ".json"
     __objects = {}
 
