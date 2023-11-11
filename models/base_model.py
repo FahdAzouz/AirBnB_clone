@@ -38,8 +38,8 @@ class BaseModel:
         of __dict__ of the instance"""
         my_dict = self.__dict__.copy()
         my_dict["__class__"] = type(self).__name__
-        my_dict["created_at"] = my_dict["created_at"].isoformat()
         my_dict["updated_at"] = my_dict["updated_at"].isoformat()
+        my_dict["created_at"] = my_dict["created_at"].isoformat()
         return my_dict
 
     def __str__(self):
