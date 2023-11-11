@@ -10,8 +10,8 @@ class City(BaseModel):
     City class
     """
 
-    state_id = ""
     name = ""
+    state_id = ""
 
     def __init__(self, *args, **kwargs):
         """Overriding constructor"""
