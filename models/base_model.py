@@ -11,13 +11,14 @@ class BaseModel():
     """
     base class for all other classes
     """
+
     def __init__(self, *args, **kwargs):
         """
         initialization
         """
         if kwargs is not None and kwargs != {}:
             for key, value in kwargs.items():
-                if key is not "__class__":
+                if key != "__class__":
                     if key in ('created_at', 'updated_at'):
                         setattr(self, key,
                                 datetime.datetime.fromisoformat(value))
@@ -48,6 +49,7 @@ class BaseModel():
         returns a dictionary containing all key/values of __dict__
         """
         my_dict = self.__dict__.copy()
-        my_dict["__class__"] = type.(self).__name__
+        my_dict["__class__"] = type(self).__name__
         my_dict["updated_at"] = my_dict["updated_at"].isoformat()
         my_dict["created_at"] = my_dict["created_at"].isoformat()
+        return my_dict
