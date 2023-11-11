@@ -1,16 +1,16 @@
 #!/usr/bin/python3
 """
-console
+console module
 """
 import cmd
-import re
-from models import storage
 from models.base_model import BaseModel
+from models import storage
+import re
 
 
 class HBNBCommand(cmd.Cmd):
     """
-    HBNBCommand class
+    HBNBComand class
     """
 
     prompt = "(hbnb) "
@@ -24,19 +24,20 @@ class HBNBCommand(cmd.Cmd):
         match = re.search("^(\w*)\.(\w+)(?:\(([^)]*)\))$", line)
         if not match:
             return line
-        cl_name = match.group(1)
-        meth = match.group(2)
-        var = match.group(3)
-        cmmd = meth + " " + cl_name + " " + var
-        self.onecmd(cmmd)
+        classname = match.group(1)
+        method = match.group(2)
+        args = match.group(3)
+        command = method + " " + classname + " " + args
+        self.onecmd(command)
         return ""
 
-    def do_quit(self, line):
-        """Quit command"""
+    def do_EOF(self, line):
+        """handles EOF"""
         return True
 
-    def do_EOF(self, line):
-        """handle end of file"""
+    def do_quit(self, line):
+        """Quit command to exit the program
+        """
         return True
 
     def emptyline(self):
@@ -45,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Creates a new instance of BaseModel"""
-        if line is None or line == "":
+        if line == "" or line is None:
             print("** class name missing **")
         elif line not in storage.classes():
             print("** class doesn't exist **")
@@ -55,55 +56,66 @@ class HBNBCommand(cmd.Cmd):
             print(obj.id)
 
     def do_show(self, line):
-        """Prints the string representation of an instance
-        based on the class name and id"""
-        if line is None or line == "":
+        """Prints the string representation of an
+        instance based on the class name and id"""
+        if line == "" or line is None:
             print("** class name missing **")
         else:
-            var = line.split(' ')
-            if var[0] not in storage.classes():
+            args = line.split(' ')
+            if args[0] not in storage.classes():
                 print("** class doesn't exist **")
-            elif len(var) < 2:
+            elif len(args) < 2:
                 print("** instance id missing **")
             else:
-                key = "{}.{}".format(var[0], var[1])
+                key = "{}.{}".format(args[0], args[1])
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
                     print(storage.all()[key])
 
-    def do_all(self, line):
-        """Prints all string representation of all
-        instances based or not on the class name"""
-        if line != "":
-            var = line.split(' ')
-            if var[0] not in storage.classes():
-                print("** class doesn't exist **")
-            else:
-                l = [str(obj) for key, obj in storage.all().items()
-                     if type(obj).__name__ == var[0]]
-                print(l)
-        else:
-            l = [str(obj) for key, obj in storage.all().items()]
-            print(l)
-
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id"""
-        if line is None or line == "":
+        if line == "" or line is None:
             print("** class name missing **")
         else:
-            var = line.split(' ')
-            if var[0] not in storage.classes():
+            args = line.split(' ')
+            if args[0] not in storage.classes():
                 print("** class doesn't exist **")
-            elif len(var) < 2:
+            elif len(args) < 2:
                 print("** instance id missing **")
             else:
-                key = "{}.{}".format(var[0], var[1])
+                key = "{}.{}".format(args[0], args[1])
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
                     del storage.all()[key]
                     storage.save()
+
+    def do_all(self, line):
+        """Prints all string representation of all
+        instances based or not on the class name"""
+        if line != "":
+            args = line.split(' ')
+            if args[0] not in storage.classes():
+                print("** class doesn't exist **")
+            else:
+                l = [str(obj) for key, obj in storage.all().items()
+                     if type(obj).__name__ == args[0]]
+                print(l)
+        else:
+            l = [str(obj) for key, obj in storage.all().items()]
+            print(l)
+
+    def do_count(self, line):
+        """retrieve the number of instances of a class"""
+        args = line.split(' ')
+        if not args[0]:
+            print("** class name missing **")
+        elif args[0] not in storage.classes():
+            print("** class doesn't exist **")
+        else:
+            matches = [k for k in storage.all() if k.startswith(args[0] + '.')]
+            print(len(matches))
 
     def do_update(self, line):
         """Updates an instance based on the class\
@@ -136,17 +148,6 @@ class HBNBCommand(cmd.Cmd):
                     value = attributes[match.group(3)](value)
                 setattr(storage.all()[key], match.group(3), value)
                 storage.all()[key].save()
-
-    def do_count(self, line):
-         """retrieve the number of instances of a class"""
-        var = line.split(' ')
-        if not var[0]:
-            print("** class name missing **")
-        elif var[0] not in storage.classes():
-            print("** class doesn't exist **")
-        else:
-            matches = [k for k in storage.all() if k.startswith(var[0] + '.')]
-            print(len(matches))
 
 
 if __name__ == '__main__':
