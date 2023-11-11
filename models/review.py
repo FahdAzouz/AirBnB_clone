@@ -10,9 +10,9 @@ class Review(BaseModel):
     Review class
     """
 
-    place_id = ""
-    user_id = ""
     text = ""
+    user_id = ""
+    place_id = ""
 
     def __init__(self, *args, **kwargs):
         """Overriding constructor"""
