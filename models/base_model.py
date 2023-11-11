@@ -2,7 +2,7 @@
 """
 base_model module
 """
-from datetime
+import datetime
 from uuid import uuid4
 from models import storage
 
