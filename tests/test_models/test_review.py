@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """
-test_city module
+test_review module
 """
-import pycodestyle
 from unittest import TestCase
-from models.city import City
+import pycodestyle
+from models.review import Review
 
 
 class TestReview(TestCase):
@@ -20,12 +20,12 @@ class TestReview(TestCase):
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
-    def test_class_doc(self):
-        """test class documentation"""
-        doc = Review.__doc__
-        self.assertGreater(len(doc), 1)
-
     def test_module_doc(self):
         """test module documentation"""
         doc = __import__('models.review').__doc__
+        self.assertGreater(len(doc), 1)
+
+    def test_class_doc(self):
+        """test class documentation"""
+        doc = Review.__doc__
         self.assertGreater(len(doc), 1)

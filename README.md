@@ -9,6 +9,7 @@ clone of AirBnB platform with limited features.
 ### How Start it
 
     ./console.py
+
 ### How to display help
 
     (hbnb) help

@@ -2,12 +2,12 @@
 """
 test_base_model module
 """
-from datetime import datetime
-from uuid import uuid4
-import pycodestyle
-from time import sleep
-from models.base_model import BaseModel
 from unittest import TestCase
+from uuid import uuid4
+from datetime import datetime
+from time import sleep
+import pycodestyle
+from models.base_model import BaseModel
 
 
 class TestBaseModel(TestCase):
@@ -23,19 +23,29 @@ class TestBaseModel(TestCase):
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
-    def test_class_doc(self):
-        """test class documentation"""
-        doc = BaseModel.__doc__
-        self.assertGreater(len(doc), 1)
-
     def test_module_doc(self):
         """test module documentation"""
         doc = __import__("models.base_model").__doc__
         self.assertGreater(len(doc), 1)
 
+    def test_class_doc(self):
+        """test class documentation"""
+        doc = BaseModel.__doc__
+        self.assertGreater(len(doc), 1)
+
     def test_init_doc(self):
         """test init method documentation"""
         doc = BaseModel.__init__.__doc__
+        self.assertGreater(len(doc), 1)
+
+    def test_str_doc(self):
+        """test str functiom documentation"""
+        doc = BaseModel.__str__.__doc__
+        self.assertGreater(len(doc), 1)
+
+    def test_save_doc(self):
+        """test save method documentation"""
+        doc = BaseModel.save.__doc__
         self.assertGreater(len(doc), 1)
 
     def test_to_dict_doc(self):
@@ -51,16 +61,6 @@ class TestBaseModel(TestCase):
         self.assertIsInstance(obj.id, str)
         self.assertIsInstance(obj.updated_at, datetime)
         self.assertIsInstance(obj.created_at, datetime)
-
-    def test_str_doc(self):
-        """test str functiom documentation"""
-        doc = BaseModel.__str__.__doc__
-        self.assertGreater(len(doc), 1)
-
-    def test_save_doc(self):
-        """test save method documentation"""
-        doc = BaseModel.save.__doc__
-        self.assertGreater(len(doc), 1)
 
     def test_save(self):
         """test save method"""

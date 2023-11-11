@@ -10,10 +10,10 @@ class User(BaseModel):
     User class
     """
 
-    first_name = ""
-    last_name = ""
     email = ""
     password = ""
+    first_name = ""
+    last_name = ""
 
     def __init__(self, *args, **kwargs):
         """Overriding constructor"""
