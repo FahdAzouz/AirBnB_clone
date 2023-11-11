@@ -27,11 +27,6 @@ class BaseModel:
             self.updated_at = self.created_at
             storage.new(self)
 
-    def __str__(self):
-        """returns string representation"""
-        return "[{}] ({}) {}".\
-            format(type(self).__name__, self.id, self.__dict__)
-
     def save(self):
         """updates the public instance attribute
         updated_at with the current datetime"""
@@ -46,3 +41,8 @@ class BaseModel:
         my_dict["created_at"] = my_dict["created_at"].isoformat()
         my_dict["updated_at"] = my_dict["updated_at"].isoformat()
         return my_dict
+
+    def __str__(self):
+        """returns string representation"""
+        return "[{}] ({}) {}".\
+            format(type(self).__name__, self.id, self.__dict__)
