@@ -7,9 +7,10 @@
 
 .places h1 {
 	width: 100%;
+	font-size: 30px;
 }
 
-.places article {
+article {
 	border: 1px solid #FF5A5F;
 	width: 390px;
 	padding: 20px;
